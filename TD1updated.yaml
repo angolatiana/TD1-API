@@ -1,0 +1,183 @@
+openapi: 3.0.0
+servers:
+  # Added by API Auto Mocking Plugin
+  - description: SwaggerHub API Auto Mocking
+    url: https://virtserver.swaggerhub.com/HEIANGOLATIANA/libraryManagement/1.0.0
+info:
+  version: "1.0.0"
+  title: Student Management
+  description: The API for the EatBacon IOT project
+
+paths:
+  /groups:
+    get:
+      summary: Retrieve a list of group
+      parameters:
+        - name: groupName
+          in: query
+          description: The name of the group to filter by
+          required: false
+          schema:
+            type: string
+        - name: groupYear
+          in: query
+          description: The release year range to filter by
+          required: false
+          schema:
+            type: string
+            format: date
+      responses:
+        '200':
+          description: A list of group
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Group'
+    post:
+      summary: Add a new group
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Group'
+      responses:
+        '201':
+          description: Group created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Group'
+    put:
+      summary: Update an existing group
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Group'
+      responses:
+        '200':
+          description: group updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Group'
+    delete:
+      summary: Delete a group by ID
+      parameters:
+        - name: id
+          in: query
+          required: true
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: group deleted
+
+  /students:
+    get:
+      summary: Retrieve a list of students
+      parameters:
+        - name: Name
+          in: query
+          description: The name of the student to filter by
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: A list of students
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Student'
+    post:
+      summary: Add a new student
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Student'
+      responses:
+        '201':
+          description: student created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Student'
+    put:
+      summary: Update an existing student
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Student'
+      responses:
+        '200':
+          description: student updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Student'
+    delete:
+      summary: Delete an student by ID
+      parameters:
+        - name: id
+          in: query
+          required: true
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: student deleted
+
+components:
+  schemas:
+    Group:
+      type: object
+      properties:
+        id:
+          type: integer
+        groupName:
+          type: string
+        author:
+          type: string
+        studentNb:
+          type: integer
+        promotion:
+          type: string
+          enum: [G, H, I, J, K]
+        groupYear:
+          type: string
+          format: date
+        students:
+          type: object
+    
+
+    Student:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        sex:
+          type: string
+          enum: [M, F]
+        birthdate:
+          type: string
+          format: date
+        reference:
+          type: string
+          example: 'STD23000'
+        group:
+          type: string
+        
+
