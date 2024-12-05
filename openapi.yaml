@@ -1,0 +1,147 @@
+openapi: 3.1.0
+info:
+  title: Library Management API
+  version: 1.0.0
+paths:
+  /books:
+    get:
+      summary: Retrieve a list of books
+      parameters:
+        - name: bookName
+          in: query
+          description: The name of the book to filter by
+          required: false
+          schema:
+            type: string
+        - name: releaseDate
+          in: query
+          description: The release date range to filter by
+          required: false
+          schema:
+            type: string
+            format: date
+      responses:
+        '200':
+          description: A list of books
+    post:
+      summary: Add a new book
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                bookName:
+                  type: string
+                author:
+                  type: string
+                pageNumbers:
+                  type: integer
+                topic:
+                  type: string
+                  enum: [ROMANCE, COMEDY, OTHER]
+                releaseDate:
+                  type: string
+                  format: date
+      responses:
+        '201':
+          description: Book created
+    put:
+      summary: Update an existing book
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: integer
+                bookName:
+                  type: string
+                author:
+                  type: string
+                pageNumbers:
+                  type: integer
+                topic:
+                  type: string
+                  enum: [ROMANCE, COMEDY, OTHER]
+                releaseDate:
+                  type: string
+                  format: date
+      responses:
+        '200':
+          description: Book updated
+    delete:
+      summary: Delete a book by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: Book deleted
+
+  /authors:
+    get:
+      summary: Retrieve a list of authors
+      parameters:
+        - name: authorName
+          in: query
+          description: The name of the author to filter by
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: A list of authors
+    post:
+      summary: Add a new author
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                sex:
+                  type: string
+                  enum: [M, F]
+      responses:
+        '201':
+          description: Author created
+    put:
+      summary: Update an existing author
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: integer
+                name:
+                  type: string
+                sex:
+                  type: string
+                  enum: [M, F]
+      responses:
+        '200':
+          description: Author updated
+    delete:
+      summary: Delete an author by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: Author deleted
