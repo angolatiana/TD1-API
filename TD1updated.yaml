@@ -145,6 +145,12 @@ components:
       properties:
         id:
           type: integer
+        allOf:
+           $ref: '#/components/schemas/CreateGroup'
+
+    CreateGroup:
+      type: object
+      properties:
         groupName:
           type: string
         author:
@@ -159,13 +165,23 @@ components:
           format: date
         students:
           type: object
-    
+        Student:
+          type: array
+          items:
+            $ref: '#/components/schemas/Student'
 
+        
     Student:
       type: object
       properties:
         id:
           type: integer
+        allOf:
+          $ref: '#/components/schemas/CreateStudent'
+
+    CreateStudent:
+      type: object
+      properties:
         name:
           type: string
         sex:
@@ -178,6 +194,6 @@ components:
           type: string
           example: 'STD23000'
         group:
-          type: string
-        
-
+          type: object
+          items:
+            $ref: '#/components/schemas/Group'
